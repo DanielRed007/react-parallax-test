@@ -1,27 +1,32 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { ScrollManager } from "./util/ScrollManager";
 import './App.css';
 
-const text = "Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. "
+const text = "Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. "
 
 function App() {
   // https://reactscript.com/parallax-scroll-images-backgrounds/
+  const [scrollTop,setScrollTop] = useState(null);
 
   console.log(window.scrollY);
 
   const scrollHandler = (e) => {
-    console.log(e);
+    // Get scroll value and modify any css
+    // console.log(e.target.scrollHeight, "Height");
+    // console.log(e.target.scrollTop, "Top");
+    setScrollTop(e.target.scrollTop);
+    // console.log(e.target.clientHeight);
   };
 
   useEffect(() => {
 
     // ScrollManager([["header",1],[".container",0.3],[".container-2",0.4]]);
 
-    window.addEventListener("scroll", function(e) {
-        const distance = window.scrollY;
+    // window.addEventListener("scroll", function(e) {
+    //     const distance = window.scrollY;
         
-        console.log(window.scrollY);
-    });
+    //     console.log(window.scrollY);
+    // });
 
   },[]);
 
@@ -50,14 +55,18 @@ function App() {
 
       <div className="container-1-prx">
         <div onScroll={(e) => scrollHandler(e)} className="c1-prx">
-          <p>{text}</p>
+          {/* <p>{text}</p> */}
+          <div className="c1bg-prx"></div>
+          <div className="c1bg2-prx"></div>
         </div>
 
-        <div className="c2-prx">
-          Hello Right Container
+        <div onScroll={(e) => scrollHandler(e)} className="c2-prx">
+          {/* <p>{text}</p> */}
+          <div className="c1bg-prx"></div>
+          <div className="c1bg2-prx"></div>
         </div>
       </div>
-
+      <p style={{color: "white"}}>{ scrollTop }</p>
     </main>
   );
 }
